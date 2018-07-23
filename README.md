@@ -1,1 +1,1 @@
-# Movie-Central
+# MovieHub
