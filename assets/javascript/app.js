@@ -18,6 +18,8 @@ $(document).ready(function () {
     // displayMovieInfo function re-renders the HTML to display the appropriate content
     function displayMovieInfo() {
 
+        $(".movie-btn1").removeClass("blinking");
+
         var movie = $(this).attr("data-name");
         var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=45d24a24";
         var queryURL1 = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -95,6 +97,11 @@ $(document).ready(function () {
             }
         });
 
+        $(".btn-2").attr("aria-expanded", "true");
+        $(".btn-3").attr("aria-expanded", "true");
+        $("#multiCollapse2").addClass("show");
+        $("#multiCollapse3").addClass("show");
+
     }
 
     // Function for displaying movie data
@@ -118,6 +125,14 @@ $(document).ready(function () {
             a.text(movies[i]);
             // Adding the button to the buttons-view div
             $("#buttons-view").append(a);
+
+            if (i > 3) {
+                a.addClass("blinking");
+                a.addClass("movie-btn1");
+                a.attr("data-name", movies[i]);
+                $("#buttons-view").append(a);
+
+            }
         }
     }
 
@@ -161,4 +176,36 @@ $(document).ready(function () {
     // Calling the renderButtons function to display the intial buttons
     renderButtons();
 
+    $(window).scroll(function(){ 
+        if ($(this).scrollTop() > 100) { 
+            $('#scroll').fadeIn(); 
+            $('#scroll').click(function(){ 
+                alert("you clicked me");
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                $("html, body").animate({ scrollTop: 0 }, 600); 
+            }); 
+        } else { 
+            $('#scroll').fadeOut(); 
+        } 
+    }); 
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+    
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+
+
 });
+
+

@@ -22,6 +22,8 @@
 
 <body>
 
+    <button onclick="topFunction()" href="#" id="scroll"><span></span></button>
+
     <div class="container-fluid">
 
         <div class="row">
@@ -73,9 +75,9 @@
                     <button class="btn btn-info btn-1" type="button" data-toggle="collapse" data-target="#multiCollapse1" aria-expanded="true"
                         aria-controls="multiCollapse1">Search for a movie
                     </button>
-                    <button class="btn btn-info btn-2" type="button" data-toggle="collapse" data-target="#multiCollapse2" aria-expanded="true"
+                    <button class="btn btn-info btn-2" type="button" data-toggle="collapse" data-target="#multiCollapse2" aria-expanded="false"
                         aria-controls="multiCollapse2">Movie Ratings and Additional Information</button>
-                    <button class="btn btn-info btn-3" type="button" data-toggle="collapse" data-target="#multiCollapse3" aria-expanded="true"
+                    <button class="btn btn-info btn-3" type="button" data-toggle="collapse" data-target="#multiCollapse3" aria-expanded="false"
                         aria-controls="multiCollapse3">Movie Previews and gifs</button>
                 </p>
 
@@ -107,7 +109,7 @@
 
                     <div class="col-lg-12">
 
-                        <div class="collapse show multi-collapse" id="multiCollapse2">
+                        <div class="collapse multi-collapse" id="multiCollapse2">
                             <div class="card card-body">
                                 <!-- Movies will Get Dumped Here -->
                                 <div id="movies-view"></div>
@@ -118,7 +120,7 @@
 
                     <div class="col-lg-12">
 
-                        <div class="collapse show multi-collapse" id="multiCollapse3">
+                        <div class="collapse multi-collapse" id="multiCollapse3">
 
                             <div class="card card-body">
                                     <div id="gifs-appear-here"></div>
