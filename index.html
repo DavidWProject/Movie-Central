@@ -70,20 +70,22 @@
             <div class="col-lg-10">
 
                 <p>
-                    <button class="btn btn-info btn-1" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="true"
-                        aria-controls="multiCollapseExample1">Search for a movie
+                    <button class="btn btn-info btn-1" type="button" data-toggle="collapse" data-target="#multiCollapse1" aria-expanded="true"
+                        aria-controls="multiCollapse1">Search for a movie
                     </button>
-                    <button class="btn btn-info btn-2" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false"
-                        aria-controls="multiCollapseExample2">Movie Ratings and Additional Information</button>
-                    <button class="btn btn-info btn-3" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="multiCollapseExample1 multiCollapseExample2">Movie Previews and gifs</button>
+                    <button class="btn btn-info btn-2" type="button" data-toggle="collapse" data-target="#multiCollapse2" aria-expanded="true"
+                        aria-controls="multiCollapse2">Movie Ratings and Additional Information</button>
+                    <button class="btn btn-info btn-3" type="button" data-toggle="collapse" data-target="#multiCollapse3" aria-expanded="true"
+                        aria-controls="multiCollapse3">Movie Previews and gifs</button>
                 </p>
 
                 <div class="row">
 
                     <div class="col-lg-12">
 
-                        <div class="collapse show multi-collapse" id="multiCollapseExample1">
+                        <p class="instructions">Press the buttons below to show your searches</p>
+
+                        <div class="collapse show multi-collapse" id="multiCollapse1">
 
                             <div class="card card-body">
                                 <!-- Rendered Buttons will get Dumped Here  -->
@@ -105,7 +107,7 @@
 
                     <div class="col-lg-12">
 
-                        <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="collapse show multi-collapse" id="multiCollapse2">
                             <div class="card card-body">
                                 <!-- Movies will Get Dumped Here -->
                                 <div id="movies-view"></div>
@@ -116,7 +118,19 @@
 
                     <div class="col-lg-12">
 
-                        <div class="collapse multi-collapse" id="multiCollapseExample3">
+                        <div class="collapse show multi-collapse" id="multiCollapse3">
+
+                            <div class="card card-body">
+                                    <div id="gifs-appear-here"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12">
+
+                        <div class="collapse multi-collapse" id="multiCollapse4">
 
                             <div class="card card-body">
                                 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,

@@ -188,6 +188,7 @@ a {
 .card {
     border-radius: 20px; 
     margin-bottom: 20px; 
+    background-color: 
 }
 
 .movie-btn {
@@ -198,7 +199,18 @@ a {
     margin-top: 5px; 
 }
 
+.movie-btn1 {
+    padding: 10px 15px 10px 10px; 
+    border-radius: 20px; 
+    background-color: #17A2B8;
+    color: white; 
+    margin-top: 5px; 
+}
 
+.instructions {
+    color: black; 
+    padding: 10px; 
+}
 
 @media only screen and (max-width: 991px) {
     #content {
@@ -209,5 +221,5 @@ a {
         display: block; 
     }
 
-
 }
+
