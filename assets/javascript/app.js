@@ -2,6 +2,8 @@ $(document).ready(function () {
     //Search functionality by Milan Milošev [codepen]
 
     function expand() {
+        $(".btn-1").attr("aria-expanded", "true");
+        $("#multiCollapse1").addClass("show");
         $(".search").toggleClass("close");
         $(".input").toggleClass("square");
         if ($('.search').hasClass('close')) {
@@ -17,6 +19,12 @@ $(document).ready(function () {
 
     // displayMovieInfo function re-renders the HTML to display the appropriate content
     function displayMovieInfo() {
+
+        if (!storedImg) {
+            var parentElement = $(".unfavorite").parent();
+            parentElement.hide();
+            $(".unfavorite").hide(); 
+        }
 
         $(".movie-btn1").removeClass("blinking");
 
@@ -85,14 +93,20 @@ $(document).ready(function () {
                     var gifDiv = $("<div class='item'>");
                     var rating = results[i].rating;
                     var p = $("<p>").text("Rating: " + rating);
-                    var favoriteButton = $('<button class="favorites" style="font-size:30px;color:orange"><i class="material-icons">star</i></button>')
-                    var personImage = $("<a href='" + results[i].images.fixed_height.url + "' download><img src='" + results[i].images.fixed_height.url + "'></a>");
+                    // var favoriteButton = $('<button class="favorites" style="font-size:30px;color:orange"><i class="material-icons">star</i></button>');
+                    // var personImage = $("<a href='" + results[i].images.fixed_height.url + "' download><img src='" + results[i].images.fixed_height.url + "'></a>");
+                    var button = $('<button>').addClass("favorites").attr("style", "font-size:30px; color: orange");
+                    var icon = $('<i>').text("star").addClass("material-icons")
+                    var personImage = $("<a>").attr("href", results[i].images.fixed_height.url)
+                    var innerImage = $("<img>").attr("src", results[i].images.fixed_height.url);
+
 
                     gifDiv.append(p);
-                    gifDiv.append(favoriteButton);
-                    gifDiv.append(personImage);
+                    gifDiv.append(button.append(icon));
+                    gifDiv.append(personImage.append(innerImage));
 
                     $("#gifs-appear-here").prepend(gifDiv);
+
                 }
             }
         });
@@ -198,10 +212,87 @@ $(document).ready(function () {
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
 
+    $(document).on("click", ".favorites", function () {
 
-    // $(document).on("click", ".favorites", function () {
-    //     $(this).push
-    // });
+        $(this).addClass("fa fa-close").removeClass("material-icon").text("");
+        $("#gifs-appear-here").prepend($(this).parent());
+
+        localStorage.clear();
+        event.preventDefault();
+
+        var savedGif = $(this).parent().css({
+            "border": "10px solid orange",
+            "padding": "10px",
+            "border-radius": "20px"
+        });
+        var parent = $(this).parent();
+        console.log(parent[0].childNodes);
+
+
+
+
+        localStorage.setItem("img", parent[0].childNodes[2].href);
+        localStorage.setItem("rating", parent[0].childNodes[0].textContent);
+
+
+
+        storedImg = localStorage.getItem("img");
+        storedRating = localStorage.getItem("rating");
+
+
+        gifDiv1 = $("<div class='item'>").css({
+            "border": "10px solid orange",
+            "padding": "10px",
+            "border-radius": "20px"
+        });
+        p = $("<p>").text("Rating: " + storedRating);
+        button = $('<button>').addClass("unfavorite").attr("style", "font-size:30px; color: orange");
+        icon1 = $('<i>').addClass("fa fa-close")
+        personImage = $("<a>").attr("href", storedImg)
+        innerImage = $("<img>").attr("src", storedImg);
+
+
+        gifDiv1.append(p);
+        gifDiv1.append(button.append(icon1));
+        gifDiv1.append(personImage.append(innerImage));
+
+        $("#gifs-appear-here").append(gifDiv1);
+
+
+
+    });
+
+
+
+    var storedImg = localStorage.getItem("img");
+    var storedRating = localStorage.getItem("rating");
+
+    var gifDiv1 = $("<div class='item'>").css({
+        "border": "10px solid orange",
+        "padding": "10px",
+        "border-radius": "20px"
+    });
+    var p = $("<p>").text("Rating: " + storedRating);
+    var button = $('<button>').addClass("unfavorite").attr("style", "font-size:30px; color: orange");
+    var icon1 = $('<i>').addClass("fa fa-close")
+    var personImage = $("<a>").attr("href", storedImg)
+    var innerImage = $("<img>").attr("src", storedImg);
+
+    gifDiv1.append(p);
+    gifDiv1.append(button.append(icon1));
+    gifDiv1.append(personImage.append(innerImage));
+
+    $("#gifs-appear-here").append(gifDiv1);
+
+    if (storedImg) {
+        $(".btn-3").attr("aria-expanded", "true");
+        $("#multiCollapse3").addClass("show");
+
+        $(".unfavorite").on("click", function () {
+            $(this).parent().fadeOut("slow");
+            localStorage.clear();
+        });
+    }
 
 
 });
