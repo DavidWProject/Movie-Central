@@ -11,7 +11,7 @@ $(document).ready(function () {
         }
     };
 
-    $('button').on('click', expand);
+    $('.search').on('click', expand);
 
     var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
 
@@ -83,13 +83,13 @@ $(document).ready(function () {
             for (var i = 0; i < results.length; i++) {
                 if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
                     var gifDiv = $("<div class='item'>");
-                    var rating = results[i].rating; 
-                    var p = $("<p>").text("Rating: " + rating); 
-                    var personImage = $("<img>"); 
+                    var rating = results[i].rating;
+                    var p = $("<p>").text("Rating: " + rating);
+                    var favoriteButton = $('<button class="favorites" style="font-size:30px;color:orange"><i class="material-icons">star</i></button>')
+                    var personImage = $("<a href='" + results[i].images.fixed_height.url + "' download><img src='" + results[i].images.fixed_height.url + "'></a>");
 
-                    personImage.attr("src", results[i].images.fixed_height.url);
-                    
                     gifDiv.append(p);
+                    gifDiv.append(favoriteButton);
                     gifDiv.append(personImage);
 
                     $("#gifs-appear-here").prepend(gifDiv);
@@ -169,26 +169,21 @@ $(document).ready(function () {
     $('.input').keypress(function (e) {
         var key = e.which;
         if (key == 13) {
-            event.preventDefault(); 
+            event.preventDefault();
             $("#add-movie").click();
         }
     });
     // Calling the renderButtons function to display the intial buttons
     renderButtons();
 
-    $(window).scroll(function(){ 
-        if ($(this).scrollTop() > 100) { 
-            $('#scroll').fadeIn(); 
-            $('#scroll').click(function(){ 
-                alert("you clicked me");
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-                $("html, body").animate({ scrollTop: 0 }, 600); 
-            }); 
-        } else { 
-            $('#scroll').fadeOut(); 
-        } 
-    }); 
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+        scrollFunction()
+    };
+
+    window.onscroll = function () {
+        scrollFunction()
+    };
 
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -197,15 +192,16 @@ $(document).ready(function () {
             document.getElementById("myBtn").style.display = "none";
         }
     }
-    
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
 
+    $("#myBtn").on("click", function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+
+    // $(document).on("click", ".favorites", function () {
+    //     $(this).push
+    // });
 
 
 });
-
-
