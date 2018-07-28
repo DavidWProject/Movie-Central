@@ -31,7 +31,7 @@ $(document).ready(function () {
         var movie = $(this).attr("data-name");
         var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=45d24a24";
         var queryURL1 = "https://api.giphy.com/v1/gifs/search?q=" +
-            movie + "&api_key=IOw9BxYKRnyeF3uRe16qBOW7SoUz11h1";
+            movie + "&api_key=IOw9BxYKRnyeF3uRe16qBOW7SoUz11h1&limit=10";
 
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
