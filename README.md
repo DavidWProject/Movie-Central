@@ -2,7 +2,7 @@
 
 A simple application for searching movies via OMDB (open movie database) and preview gifs via Giphy. 
 
-Computer Languages Used: 
+Programming Languages Used: 
 1. HTML with Bootstrap
 2. CSS
 3. Javascript with Jquery
