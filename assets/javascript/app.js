@@ -1,4 +1,24 @@
+$(document).on("click", ".fa-pause, .fa-play", function () {
+
+    var grandP = $(this).parent().parent();
+    var outsideDiv = (grandP[0].childNodes[3].childNodes[0]);
+
+
+    if ($(outsideDiv).attr("data-state") === "data-animate") {
+        $(outsideDiv).attr("src", $(outsideDiv).attr("data-still")); 
+        $(outsideDiv).attr("data-state", "still"); 
+        $(this).removeClass("fa-pause").addClass("fa-play"); 
+    } else {
+        $(outsideDiv).attr("src", $(outsideDiv).attr("data-animate")); 
+        $(outsideDiv).attr("data-state", "data-animate"); 
+        $(this).removeClass("fa-play").addClass("fa-pause"); 
+    }
+
+});
+
 $(document).ready(function () {
+
+
     //Search functionality by Milan Milošev [codepen]
 
     function expand() {
@@ -23,7 +43,7 @@ $(document).ready(function () {
         if (!storedImg) {
             var parentElement = $(".unfavorite").parent();
             parentElement.hide();
-            $(".unfavorite").hide(); 
+            $(".unfavorite").hide();
         }
 
         $(".movie-btn1").removeClass("blinking");
@@ -40,8 +60,8 @@ $(document).ready(function () {
         }).then(function (response) {
             // console.log(response); 
 
-            var actors = response.Actors; 
-            var awards = response.Awards; 
+            var actors = response.Actors;
+            var awards = response.Awards;
             // Creating a div to hold the movie
             var movieDiv = $("<div class='movie'>");
 
@@ -78,7 +98,7 @@ $(document).ready(function () {
 
             var pFive = $("<p>").text("Awards won and Nominations: " + awards);
 
-            movieDiv.append(pFive); 
+            movieDiv.append(pFive);
 
             // Retrieving the URL for the image
             var imgURL = response.Poster;
@@ -98,30 +118,43 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             var results = response.data;
+            console.log(results); 
 
             for (var i = 0; i < results.length; i++) {
+                
                 if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
                     var gifDiv = $("<div class='item'>");
                     var rating = results[i].rating;
+                    var stillImg = results[i].images.original_still.url; 
                     var p = $("<p>").text("Rating: " + rating);
                     // var favoriteButton = $('<button class="favorites" style="font-size:30px;color:orange"><i class="material-icons">star</i></button>');
                     // var personImage = $("<a href='" + results[i].images.fixed_height.url + "' download><img src='" + results[i].images.fixed_height.url + "'></a>");
                     var button = $('<button>').addClass("favorites").attr("style", "font-size:30px; color: orange");
-                    var icon = $('<i>').text("star").addClass("material-icons")
-                    var personImage = $("<a>").attr("href", results[i].images.fixed_height.url)
-                    var innerImage = $("<img>").attr("src", results[i].images.fixed_height.url);
-
+                    var button1 = $('<button>').addClass("pause").attr("style", "font-size:30px; color: orange");
+                    var icon = $('<i>').text("star").addClass("material-icons");
+                    var pauseIcon = $('<i>').addClass("fa fa-pause").attr("aria-hidden", "true");
+                    var personImage = $("<a>").attr("href", results[i].images.fixed_height.url);
+                    var innerImage = $("<img>").attr({
+                        "src": results[i].images.fixed_height.url,
+                        "data-state": "data-animate",
+                        "data-still": stillImg,
+                        "data-animate": results[i].images.fixed_height.url
+                    });
+                    var state = $(this).attr("data-state");
 
                     gifDiv.append(p);
                     gifDiv.append(button.append(icon));
+                    gifDiv.append(button1.append(pauseIcon));
                     gifDiv.append(personImage.append(innerImage));
 
                     $("#gifs-appear-here").prepend(gifDiv);
 
+
+
                     // if (storedImg) {
                     //     storedImg = localStorage.getItem("img");
                     //     storedRating = localStorage.getItem("rating");
-                    
+
                     //     gifDiv1 = $("<div class='item'>").css({
                     //         "border": "10px solid orange",
                     //         "padding": "10px",
@@ -132,13 +165,14 @@ $(document).ready(function () {
                     //     icon1 = $('<i>').addClass("fa fa-close")
                     //     personImage = $("<a>").attr("href", storedImg)
                     //     innerImage = $("<img>").attr("src", storedImg);
-                    
+
                     //     gifDiv1.append(p);
                     //     gifDiv1.append(button.append(icon1));
                     //     gifDiv1.append(personImage.append(innerImage));
                     // }
 
                 }
+
             }
         });
 
@@ -180,7 +214,6 @@ $(document).ready(function () {
             }
         }
     }
-
 
     // This function handles events where a movie button is clicked
     $("#add-movie").on("click", function (event) {
@@ -245,8 +278,9 @@ $(document).ready(function () {
 
     $(document).on("click", ".favorites", function () {
 
+
         $(this).addClass("unfavorite").addClass("fa fa-close").removeClass("material-icon").removeClass("favorites").text("")
-        console.log(this); 
+        
         $("#favorites-appear-here").prepend($(this).parent());
 
         localStorage.clear();
@@ -258,14 +292,14 @@ $(document).ready(function () {
             "border-radius": "20px"
         });
         var parent = $(this).parent();
+
         // console.log(parent[0].childNodes);
 
-        localStorage.setItem("img", parent[0].childNodes[2].href);
+        localStorage.setItem("img", parent[0].childNodes[3].href);
         localStorage.setItem("rating", parent[0].childNodes[0].textContent);
 
         storedImg = localStorage.getItem("img");
         storedRating = localStorage.getItem("rating");
-
 
         // gifDiv1 = $("<div class='item'>").css({
         //     "border": "10px solid red",
@@ -286,33 +320,37 @@ $(document).ready(function () {
         // $("#favorites-appear-here").append(gifDiv1);
 
         $(".unfavorite").on("click", function () {
-            var parent = $(this).parent(); 
+            var parent = $(this).parent();
             parent.fadeOut("slow");
-        });    
+        });
 
     });
-
+    
     storedImg = localStorage.getItem("img");
     storedRating = localStorage.getItem("rating");
 
-    gifDiv1 = $("<div class='item'>").css({
-        "border": "10px solid orange",
-        "padding": "10px",
-        "border-radius": "20px"
-    });
-    p = $("<p>").text("Rating: " + storedRating);
-    button = $('<button>').addClass("unfavorite").attr("style", "font-size:30px; color: orange");
-    icon1 = $('<i>').addClass("fa fa-close")
-    personImage = $("<a>").attr("href", storedImg)
-    innerImage = $("<img>").attr("src", storedImg);
-
-    gifDiv1.append(p);
-    gifDiv1.append(button.append(icon1));
-    gifDiv1.append(personImage.append(innerImage));
-
-    $("#gifs-appear-here").append(gifDiv1);
-
     if (storedImg) {
+
+        storedImg = localStorage.getItem("img");
+        storedRating = localStorage.getItem("rating");
+    
+        gifDiv1 = $("<div class='item'>").css({
+            "border": "10px solid orange",
+            "padding": "10px",
+            "border-radius": "20px"
+        });
+        p = $("<p>").text("Rating: " + storedRating);
+        button = $('<button>').addClass("unfavorite").attr("style", "font-size:30px; color: orange");
+        icon1 = $('<i>').addClass("fa fa-close")
+        personImage = $("<a>").attr("href", storedImg)
+        innerImage = $("<img>").attr("src", storedImg);
+    
+        gifDiv1.append(p);
+        gifDiv1.append(button.append(icon1));
+        gifDiv1.append(personImage.append(innerImage));
+    
+        $("#gifs-appear-here").append(gifDiv1);
+
         $(".btn-3").attr("aria-expanded", "true");
         $("#multiCollapse3").addClass("show");
 
