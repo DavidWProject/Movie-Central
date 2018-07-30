@@ -254,8 +254,8 @@ $(document).ready(function () {
 
     // Favorites Button Functionality
     $(document).on("click", ".favorites", function () {
-
-
+    
+        //If clicked on favorites, it would turn into an X for un-favoriting. 
         $(this).addClass("unfavorite").addClass("fa fa-close").removeClass("material-icon").removeClass("favorites").text("")
         
         $("#favorites-appear-here").prepend($(this).parent());
@@ -284,7 +284,8 @@ $(document).ready(function () {
         });
 
     });
-    
+
+    //This is for the saved img when the page reloads    
     storedImg = localStorage.getItem("img");
     storedRating = localStorage.getItem("rating");
 
