@@ -1,3 +1,4 @@
+// Pause and Play Button functionality. 
 $(document).on("click", ".fa-pause, .fa-play", function () {
 
     var grandP = $(this).parent().parent();
@@ -149,28 +150,6 @@ $(document).ready(function () {
 
                     $("#gifs-appear-here").prepend(gifDiv);
 
-
-
-                    // if (storedImg) {
-                    //     storedImg = localStorage.getItem("img");
-                    //     storedRating = localStorage.getItem("rating");
-
-                    //     gifDiv1 = $("<div class='item'>").css({
-                    //         "border": "10px solid orange",
-                    //         "padding": "10px",
-                    //         "border-radius": "20px"
-                    //     });
-                    //     p = $("<p>").text("Rating: " + storedRating);
-                    //     button = $('<button>').addClass("unfavorite").attr("style", "font-size:30px; color: orange");
-                    //     icon1 = $('<i>').addClass("fa fa-close")
-                    //     personImage = $("<a>").attr("href", storedImg)
-                    //     innerImage = $("<img>").attr("src", storedImg);
-
-                    //     gifDiv1.append(p);
-                    //     gifDiv1.append(button.append(icon1));
-                    //     gifDiv1.append(personImage.append(innerImage));
-                    // }
-
                 }
 
             }
@@ -233,6 +212,7 @@ $(document).ready(function () {
     // Adding a click event listener to all elements with a class of "movie-btn"
     $(document).on("click", ".movie-btn1", displayMovieInfo);
 
+    // For if Enter Key is pressed: 
     $(document).keypress(function (e) {
         if (e.which == 13) {
             displayMovieInfo;
@@ -259,10 +239,6 @@ $(document).ready(function () {
         scrollFunction()
     };
 
-    window.onscroll = function () {
-        scrollFunction()
-    };
-
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             document.getElementById("myBtn").style.display = "block";
@@ -276,6 +252,7 @@ $(document).ready(function () {
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
 
+    // Favorites Button Functionality
     $(document).on("click", ".favorites", function () {
 
 
@@ -300,24 +277,6 @@ $(document).ready(function () {
 
         storedImg = localStorage.getItem("img");
         storedRating = localStorage.getItem("rating");
-
-        // gifDiv1 = $("<div class='item'>").css({
-        //     "border": "10px solid red",
-        //     "padding": "10px",
-        //     "border-radius": "20px"
-        // });
-        // p = $("<p>").text("Rating: " + storedRating);
-        // button = $('<button>').addClass("unfavorite").attr("style", "font-size:30px; color: orange");
-        // icon1 = $('<i>').addClass("fa fa-close")
-        // personImage = $("<a>").attr("href", storedImg)
-        // innerImage = $("<img>").attr("src", storedImg);
-
-
-        // gifDiv1.append(p);
-        // gifDiv1.append(button.append(icon1));
-        // gifDiv1.append(personImage.append(innerImage));
-
-        // $("#favorites-appear-here").append(gifDiv1);
 
         $(".unfavorite").on("click", function () {
             var parent = $(this).parent();
